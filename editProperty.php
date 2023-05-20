@@ -1,7 +1,7 @@
 <?php
 /////////////////ناقص الديليت والابلود
 session_start();
-    if(isset($_SESSION['role']) && $_SESSION['role']=='HomeOwner'){             
+    if(isset($_SESSION['role']) && $_SESSION['role']=='homeowner'){             
 /////////////// to make the values of the property id that it has sent exists in the form
                 $id;
                 $Pname;
@@ -42,7 +42,7 @@ session_start();
          
                
                 
-                 $sql="UPDATE 'property' SET 'id'='".$id."','homeowner_id'='1','property_category_id'='1','name'='".$Pname."','rooms'='".$rooms."','rent_cost'='".$rent."','location'='".$loc."','max_tenants'='".$tenants."','description'='".$description."' WHERE 'id'= ".$id;
+                 $sql="UPDATE 'Property' SET 'id'='".$id."','homeowner_id'='1','property_category_id'='1','name'='".$Pname."','rooms'='".$rooms."','rent_cost'='".$rent."','location'='".$loc."','max_tenants'='".$tenants."','description'='".$description."' WHERE 'id'= ".$id;
           $result1=mysqli_query($connection,$sql);
           
                }

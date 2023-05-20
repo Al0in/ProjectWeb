@@ -1,7 +1,7 @@
 <?php
 /////////////وسالفة الهوم ايدي واتوقع تتعدل مع السيشن
         session_start();
-                if(isset($_SESSION['role']) && $_SESSION['role']=='HomeOwner'){
+                if(isset($_SESSION['role']) && $_SESSION['role']=='homeowner'){
              $connection = mysqli_connect("localhost", "root", "root", "homesnap");
 
             $error = mysqli_connect_error();
