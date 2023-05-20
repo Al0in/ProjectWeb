@@ -14,6 +14,7 @@
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $id;
                 $Cid;
+                $ownerID;
                 
                 /////////////////Adding property info from Property & PropertyCategory tables
 
@@ -33,10 +34,15 @@
                 $loc=$_POST['Location'];
                 $tenants=$_POST['NOT'];
                 $description=$_POST['Desc'];
+                $ownerEmail=$_POST['email'];
 
+                
+                $homeowner= mysqli_query($connection, "SELECT id FROM Homeowner WHERE email_adress=".$ownerEmail);
+                   while ($owneer = mysqli_fetch_assoc($homeowner)){ 
+                      $ownerID=$owneer['id']; } 
                
                 
-                $result = mysqli_query($connection ,"INSERT INTO Property (id, homeowner_id, property_category_id, name, rooms, rent_cost,location, max_tenants, description) VALUES (' ".$id."' , '1' ,'".$Cid."',  ' ".$Pname ." ' ,'".$rooms." ' ,' ".$rent."' ,' ".$loc."' ,' ".$tenants."' ,' ".$description." ' )");
+                $result = mysqli_query($connection ,"INSERT INTO Property (id, homeowner_id, property_category_id, name, rooms, rent_cost,location, max_tenants, description) VALUES (' ".$id."' , '".$ownerID."' ,'".$Cid."',  ' ".$Pname ." ' ,'".$rooms." ' ,' ".$rent."' ,' ".$loc."' ,' ".$tenants."' ,' ".$description." ' )");
                
                 
                 ////////////////// Adding photos from PropertyImage table

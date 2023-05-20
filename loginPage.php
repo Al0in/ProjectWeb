@@ -261,7 +261,7 @@ hr {
 <section class="main">
       <div>
 	  <div id="bluring"><div>
-	   <form action="" style="border:1px solid #ccc" method="POST">
+	   <form action="AddNewProperty.php" style="border:1px solid #ccc" method="POST">
     <div class="container">
     <h1>Log In</h1>
     <p>Welcome .. Please fill in this form to Log in </p>
