@@ -1,4 +1,57 @@
+<?php
+/////////////////ناقص الديليت والابلود
+session_start();
+    if(isset($_SESSION['role']) && $_SESSION['role']=='HomeOwner'){             
+/////////////// to make the values of the property id that it has sent exists in the form
+                $id;
+                $Pname;
+                $rooms;
+                $rent;
+                $loc;
+                $tenants;
+                $description;
+ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])){
  
+                $id=$_GET['id'];
+        
+                
+                $connection = mysqli_connect("localhost", "root", "root", "homesnap");
+               $result=mysqli_query($connection, "SELECT * FROM Property WHERE id=".$id);
+              while($row=mysqli_fetch_assoc($result)){
+               $Pname=$row['name'];
+                $rooms=$row['rooms'];
+                $rent=$row['rent_cost'];
+                $loc=$row['location'];
+                $tenants=$row['max_tenants'];
+                $description=$row['description']; 
+                $Cid=$row['property_category_id'];
+              
+ } }
+ 
+            if($_SERVER['REQUEST_METHOD'] === 'POST'){
+               if($_SERVER['REQUEST_METHOD'] === 'GET'&& isset($_GET['id'])){  
+              $id=$_GET['id'];
+                $Pname= isset($_POST['name'])?$_POST['name']:'';
+                $rooms=isset($_POST['NOR'])?$_POST['NOR']:0;
+                $rent=isset($_POST['Rent'])?$_POST['Rent']:0;
+                $loc=isset($_POST['Location'])?$_POST['Location']:'';
+                $tenants=isset($_POST['NOT'])?$_POST['NOT']:0;
+                $description=isset($_POST['Desc'])?$_POST['Desc']:'';
+                
+               
+         
+               
+                
+                 $sql="UPDATE 'property' SET 'id'='".$id."','homeowner_id'='1','property_category_id'='1','name'='".$Pname."','rooms'='".$rooms."','rent_cost'='".$rent."','location'='".$loc."','max_tenants'='".$tenants."','description'='".$description."' WHERE 'id'= ".$id;
+          $result1=mysqli_query($connection,$sql);
+          
+               }
+            }
+  
+
+ 
+          
+          ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -130,7 +183,7 @@ body {
     color: #FFF;
     font-size: 1.4em;
     font-weight: 500;
-	/*text-shadow: 3px 3px 3px white;*/
+	
 	background:rgba(0, 0, 0, 0.551); 
 	border-radius: 25px;
 	padding:40px;
@@ -209,12 +262,14 @@ hr {
 .flixpic{
 display:flex;
 flex-direction: row;
-justify-content: space-around;
+justify-content: center;
+align-items: center;
 
 }
 .flixpicins{
 display:flex;
 flex-direction: column;
+justify-content: center;
 }
   
 	
@@ -245,7 +300,7 @@ flex-direction: column;
       <a href="#" class="logo"><img src="Logo.png" alt="logo" width="120px"></a>
 
       <nav class="navbar">
-        <a href="index.php">Home</a>
+     <a href="index.php">Home</a>
 		<a href="Homeowners.php">HomeOwner</a>
         <a href="AddNewProperty.php">Add Property</a>
 		<a href="editProperty.php">Edit Property </a>
@@ -267,75 +322,81 @@ flex-direction: column;
           
     </header>
 
-
-<!-- /action_page.php -->
 <section class="main">
       <div>
-	  <form action="" style="border:1px solid #ccc">
+	  <form   method="POST" style="border:1px solid #ccc">
   <div class="container">
     <h1>Property information</h1>
     <p>This is the Property information</p>
     <hr>
 	
 	<label  for="name" ><b>Property Name:</b> </label><br>
-	<input type ="text"  id="name" name="name" value="Olaya Plaza"><br>
+       
+        <input type ="text"  id="name" name="name" value="<?php echo $Pname;?>"><br>
    
 	
 	<label for="Category" ><b>Category:</b> </label><br>
-    <input type ="text" id="Category" name="Category" value="Apartment"><br>
+    <input type ="text" id="Category" name="Category" value="<?php $queryy=mysqli_query($connection, "SELECT category FROM PropertyCategory WHERE id=".$Cid);                        
+                  while ($column1 = mysqli_fetch_assoc($queryy)){ 
+                      echo $column1['category']; }     
+               ?>"><br>
 	
 	<label for="NOR" ><b>Number of rooms: </b></label><br>
-    <input type="number" id="NOR" name="NOR" value="3"><br>
+    <input type="number" id="NOR" name="NOR" value="<?php echo $rooms;?>"><br>
 	
 	<label for="Rent" ><b>Rent: </b></label></label>
-    <input type ="text"  id="Rent" name="Rent" value="1000/month"><br>
+    <input type ="text"  id="Rent" name="Rent" value="<?php echo $rent ;?>"><br>
 	
 	<label for="NOT" ><b>Max number of tenants:</b> </label><br>
-    <input type="number" id="NOT" name="NOT" value="3"><br>
+    <input type="number" id="NOT" name="NOT" value="<?php echo $tenants ;?>"><br>
 	
 	<label for="Location" ><b>Location:</b> </label><br>
-	<input type ="text" id="Location" name="Location" value="Riyadh, Olaya Dist" ><br>
+	<input type ="text" id="Location" name="Location" value="<?php echo $loc;?>" ><br>
 	
 	<label for="Description" ><b>Description:</b> </label><br>
-	<textarea rows="6" cols="24" placeholder="Enter Property Description" > Size: 150 m2 / 1615 ft2 has living room,kitchen,3 bathrooms,3rooms</textarea> <br>
+	<textarea rows="6" cols="24" placeholder="Enter Property Description" ><?php echo $description;?> </textarea> <br>
 
     <div class="flixpic">
 
     <div class="flixpicins">
     <label for="pic1" ><b>Picture of property:</b> </label>
-	<img src="view1.jpg" class="m1" alt="img1" style="height:180px; width:230px;">
-	<button class="favorite styled" type="button"> <a href=""> Delete image </a> </button><br>
+	<img src="<?php $img=mysqli_query($connection, "SELECT path FROM PropertyImage WHERE property_id=".$id);                        
+                  while ($column1 = mysqli_fetch_assoc($img)){ 
+                      echo $column1['path']; }   ?>" class="m1" alt="img1" style="height:180px; width:230px;">
+        <button class="favorite styled" type="button" name="delete"> Delete image </button><br>
+         <button class="favorite styled" type="button" style="float:right;"> <a href=""> Upload Image</a> </button>
+       
 	</div>
 
-    <div class="flixpicins">
+    <!--<div class="flixpicins">
     <label for="pic2" ><b>Picture of property:</b> </label>
 	<img src="view2.jpg" class="m1" alt="img1" style="height:180px; width:230px;">
-    <button class="favorite styled" type="button"> <a href=""> Delete image </a> </button><br>
+    <button class="favorite styled" type="button" name="delete1"> <a href=""> Delete image </a> </button><br>
 	</div>
 
 
     <div class="flixpicins">
     <label for="pic3" ><b>Picture of property:</b> </label>
 	<img src="view3.jpg" class="m1" alt="img1" style="height:180px; width:230px;">
-    <button class="favorite styled" type="button"> <a href=""> Delete image </a> </button><br>
+    <button class="favorite styled" type="button" name="delete2"> <a href=""> Delete image </a> </button><br>
 	</div>
-    </div>
+    </div>-->
 
 <br><br><br>
 
-    <button class="favorite styled" type="button" style="float:right;"> <a href=""> Upload Images</a> </button>
+    </div>
   
     <div class="clearfix">
-      
-      <button type="submit" class="signupbtn" onclick="validateForm(); return false">Done</button>
+           <button type="submit" class="signupbtn" onclick="validateForm(); return false">Done</button>
 	  
      <script src="validation.js"> </script>
+   
      
     </div>
-  </div>
+ 
 </form>
-	  
-	  
+
+   
 	  
 	  
 	  
@@ -352,4 +413,15 @@ flex-direction: column;
       </div>
     </footer>
   </body>
+
   </html>
+  
+  <?php 
+      }
+    
+    else{
+        
+        echo "You can not reach this page";
+    }
+  
+

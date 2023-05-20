@@ -1,4 +1,68 @@
- 
+<?php
+/////////////وسالفة الهوم ايدي واتوقع تتعدل مع السيشن
+        session_start();
+                if(isset($_SESSION['role']) && $_SESSION['role']=='HomeOwner'){
+             $connection = mysqli_connect("localhost", "root", "root", "homesnap");
+
+            $error = mysqli_connect_error();
+            if ($error != null) {
+                echo "<p> Cannot connect with DataBase </p>";
+
+            }
+    else {
+        
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+                $id;
+                $Cid;
+                
+                /////////////////Adding property info from Property & PropertyCategory tables
+
+               
+                $query= mysqli_query($connection,"SELECT * From Property" );
+                    while ($column = mysqli_fetch_assoc($query )) { 
+                      $id=$column['id']; }
+                      
+             $queryy=mysqli_query($connection, "SELECT id FROM PropertyCategory WHERE category='".$_POST['Category']."'");                        
+                  while ($column1 = mysqli_fetch_assoc($queryy)){ 
+                      $Cid=$column1['id']; }     
+               
+                $id+=1;
+                $Pname=$_POST['name'];
+                $rooms=$_POST['NOR'];
+                $rent=$_POST['Rent'];
+                $loc=$_POST['Location'];
+                $tenants=$_POST['NOT'];
+                $description=$_POST['Desc'];
+
+               
+                
+                $result = mysqli_query($connection ,"INSERT INTO Property (id, homeowner_id, property_category_id, name, rooms, rent_cost,location, max_tenants, description) VALUES (' ".$id."' , '1' ,'".$Cid."',  ' ".$Pname ." ' ,'".$rooms." ' ,' ".$rent."' ,' ".$loc."' ,' ".$tenants."' ,' ".$description." ' )");
+               
+                
+                ////////////////// Adding photos from PropertyImage table
+                
+                $idImage;
+                   $connection = mysqli_connect("localhost", "root", "root", "homesnap");
+                    $query1=mysqli_query($connection,"SELECT * From PropertyImage");
+                    while ($row = mysqli_fetch_assoc( $query1 )) { 
+                    $idImage=$row['id'];}
+                    
+                    $idImage+=1;
+                    
+                  
+                
+              $result5 = mysqli_query($connection , "INSERT INTO PropertyImage (id, property_id, path) VALUES (' ".$idImage."' , ' ".$id." ', ' ".$_POST['pic1']." ')");
+          
+        }          
+  }
+  
+  
+                      
+        
+                    
+   
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -236,7 +300,6 @@ hr {
       <nav class="navbar">
         <a href="index.php">Home</a>
 		<a href="Homeowners.php">HomeOwner</a>
-        <a href="AddNewProperty.php">Add Property</a>
 		<a href="editProperty.php">Edit Property </a>
        
         
@@ -257,10 +320,9 @@ hr {
     </header>
 
 
-<!-- /action_page.php -->
 <section class="main">
       <div>
-	  <form action="" style="border:1px solid #ccc">
+          <form  method="POST" style="border:1px solid #ccc">
   <div class="container">
     <h1>Property information</h1>
     <p>Please fill in this form to create a new property</p>
@@ -276,7 +338,7 @@ hr {
 	<label for="NOR" ><b>Number of rooms: </b></label><br>
     <input type="number" id="NOR" name="NOR" placeholder="Enter Number of rooms" required><br>
 	
-	<label for="Rent" ><b>Rent: </b></label></label>
+	<label for="Rent" ><b>Rent: </b></label>
     <input type ="text"  id="Rent" name="Rent" placeholder="Enter the Rent" required><br>
 	
 	<label for="NOT" ><b>Max number of tenants:</b> </label><br>
@@ -286,26 +348,25 @@ hr {
 	<input type ="text" id="Location" name="Location" placeholder="Enter Property Location" required ><br>
 	
 	<label for="Description" ><b>Description:</b> </label><br>
-	<textarea rows="6" cols="24" placeholder="Enter Property Description" > </textarea> <br>
+	<textarea rows="6" cols="24" placeholder="Enter Property Description" id="Desc" name="Desc"> </textarea> <br>
 
     <label for="pic1" ><b>Picture of property:</b> </label>
 	<input type ="file"  id="pic1" name="pic1" accept="image/png, image/jpeg"><br>
 
 
-    <label for="pic2" ><b>Picture of property:</b> </label>
+  <!--  <label for="pic2" ><b>Picture of property:</b> </label>
 	<input type ="file"  id="pic2" name="pic2" accept="image/png, image/jpeg"><br>
 
 
     <label for="pic3" ><b>Picture of property:</b> </label>
 	<input type ="file"  id="pic3" name="pic3" accept="image/png, image/jpeg"><br>
-
+-->
     
   
     <div class="clearfix">
       
-      <button type="submit" class="signupbtn" onclick="validateForm(); return false">Add</button>
-	  
-     <script src="validation.js"> </script>
+      <input type="submit" value="Add" name='adding' class="signupbtn" >
+    
      
     </div>
   </div>
@@ -329,3 +390,13 @@ hr {
     </footer>
   </body>
   </html>
+
+          
+<?php
+
+                }
+                
+                else{
+                    echo "You can not reach this page";
+                }
+        

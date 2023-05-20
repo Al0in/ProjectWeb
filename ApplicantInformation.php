@@ -1,3 +1,32 @@
+<?php
+$connection = mysqli_connect("localhost", "root", "root", "homesnap");
+$error = mysqli_connect_error();
+ if ($error != null) {
+ echo "<p> Cannot connect with DataBase </p>";
+} else {
+    
+    
+      if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])){
+       
+       $id=$_GET['id'];
+       
+         $result= mysqli_query($connection,"SELECT * FROM HomeSeeker WHERE id=".$id);
+     while($info= mysqli_fetch_assoc($result)){
+       $First=$info['first_name'];
+       $Last=$info['last_name'];
+       $age=$info['age'];
+       $Fam=$info['family_members'];
+       $income=$info['income'];
+       $job=$info['job'];
+       $email=$info['email_adress'];
+       $phone=$info['phone_number'];
+         
+     }
+      }
+}
+?>
+
+
  
 <!DOCTYPE html>
 <html lang="en">
@@ -237,28 +266,28 @@ hr {
     <hr>
 	 <div class="drive">
 	<label for="FName"><b>First Name</b></label><br>
-    <h3 ><b>Sarah</b></h3><br>
+    <h3 ><b> <?php echo $First ?></b></h3><br>
 	
 	<label for="LName"><b>Last Name</b></label><br>
-    <h3 ><b>Ahmad</b></h3><br>
+    <h3 ><b><?php echo $Last ?></b></h3><br>
 	
 	<label for="age"><b>Age</b></label><br>
-    <h3><b>35</b></h3><br>
+    <h3><b><?php echo $age ?></b></h3><br>
 	
 	<label for="Family"><b>Family members</b></label>
-    <h3 ><b>3</b></h3><br>
+    <h3 ><b><?php echo $Fam ?></b></h3><br>
 	
 	<label for="income"><b>Income</b></label><br>
-    <h3 ><b>30,000 SR</b></h3><br>
+    <h3 ><b><?php echo $income ?></b></h3><br>
 	
 	<label for="job"><b>Job</b></label><br>
-    <h3 ><b>Doctor</b></h3><br>
+    <h3 ><b><?php echo $job ?></b></h3><br>
 	
 	<label for="phone">Phone number</label><br>
-    <h3 ><b>+996554356708</b></h3><br>
+    <h3 ><b><?php echo $phone ?></b></h3><br>
 
     <label for="email"><b>Email</b></label><br>
-    <h3 ><b>Sarah@hotmail.com</b></h3><br>
+    <h3 ><b><?php echo $email ?></b></h3><br>
     
        
   </div>
@@ -268,3 +297,4 @@ hr {
  
   </body>
   </html>
+
