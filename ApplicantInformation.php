@@ -1,3 +1,4 @@
+ 
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,21 +7,20 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    <title>Home page</title>
+    <title>Applicant Information </title>
 	
 	
 	<style>
 	
 	body {
     min-height: 100vh;
- 
 }
 
 	.header{
     position: fixed;
     top:0; left:0; right:0;
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.551);
+    background: rgba(255, 255, 255, 0.251);
     display: flex;
     align-items: center;
     padding:20px 3%;
@@ -58,7 +58,6 @@
 
 }
 .header .icons i{
-display:hidden;
     height:3rem;
     line-height:3rem;
     width:3rem;
@@ -120,47 +119,36 @@ body {
     display: flex;
     align-items: center;
     background: url(background.jpg) no-repeat;
+    background-size: 600px;
     background-attachment: fixed;
-	min-height: 100vh;
     background-size: cover;
-}	
-.main h2 {
-    color: #000;
+}
+
+.main form {
+    color: #FFF;
     font-size: 1.4em;
     font-weight: 500;
-	text-shadow: 3px 3px 3px white;
-	background:rgba(255, 255, 255, 0.551);
+	/*text-shadow: 3px 3px 3px white;*/
+	background:rgba(0, 0, 0, 0.551); 
 	border-radius: 25px;
 	padding:40px;
-
-}
-.main h2 span {
-    display: inline-block;
-    margin-top: 6px;
-    color: #000;
-    font-weight: 600;
-    font-size: 3em;
-    text-shadow: 3px 3px 3px white;
+	margin-left:auto ;
+	margin-right:auto;
+	margin-top:70px;
+	width: 1000px;
 	
 
+}	
+
+
+
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
 }
-.main-btn {
-    color: #000;
-    background-color: #ffffff4a;
-    text-decoration: none;
-    font-size: 1.1em;
-    font-weight: 600;
-    display: inline-block;
-    padding: 0.9375em 1.1875em;
-    letter-spacing: 1px;
-    border-radius: 30px;
-    margin-bottom: 10px;
-    transition: 0.5s ease;
-}
-.main-btn:hover {
-  background-color: #6495ED;
-  transform: scale(1.1);
-}
+
+
 .styled {
     border: 0;
     line-height: 2.5;
@@ -186,24 +174,35 @@ body {
   a:link    { color: white; text-decoration: none; }
   a:visited { color: white; text-decoration: none; }
   a:hover   { color: white; text-decoration: none; }
-  a:active  { color: white; text-decoration: none; }
+  a:active  { color: white; text-decoration: none;}
   
-	
+  .drive{ 
+    width: 80%;
+    min-height: 30vh;
+    display: inline-block;
+    align-items: center;
+    color: #fff;
+    font-size: 0.8em;
+   
+}
+.drive h3{   
+    color: black;
+    font-size: 1.2em;
+	text-shadow: 1px 1px 1px white;
+	background:rgba(255, 255, 255, 0.8);
+	border-radius: 15px;
+	padding:15px;
+  }
 	
 	</style>
 	
 	
-	
-	
-	
-	
-	
 	</head>
-  <body>
-  
+
+
+ <body>
   
    
-	
 	<!--           header          -->
     <header class="header">
      
@@ -211,7 +210,7 @@ body {
 
       <nav class="navbar">
         <a href="index.php">Home</a>
-       
+        <a href="Homeowners.php">HomeOwner</a>
         
       </nav>
       <div class="icons">
@@ -225,27 +224,47 @@ body {
         <label for="search-box" class="fas fa-search"></label>
     </form>
        <button class="favorite styled"
-               type="button" style="position:absolute; top:50px; right:5px;"> <a href="Home.html"> LOG OUT</a> </button>
-          
-    </header>
-	
-	
-  <section class="main">
+               type="button" style="position:absolute; top:50px; right:5px; "> <a href="Home.html"> LOG OUT</a> </button>
+    </header>
+
+
+<!-- /action_page.php -->
+<section class="main">
       <div>
-        <h2>
-          Welcome to <span class="snap">HomeSnap</span><br />
-		  <span>online home rental system</span >
-        </h2>
-        <a  href="loginPage.php" class="main-btn" style="color:black;">Login </a>
-        <a  href="signUpPage.php" class="main-btn" style="color:black;">sign up</a>
-      </div>
-    </section>
-  
-  
-  <footer>
-      <div class="footer">
-        <p>Copyright &copy; All Rights Reserved</p>
-      </div>
-    </footer>
+	  <form action="" style="border:1px solid #ccc">
+  <div class="container">
+    <h1>Applicant Information</h1>
+    <hr>
+	 <div class="drive">
+	<label for="FName"><b>First Name</b></label><br>
+    <h3 ><b>Sarah</b></h3><br>
+	
+	<label for="LName"><b>Last Name</b></label><br>
+    <h3 ><b>Ahmad</b></h3><br>
+	
+	<label for="age"><b>Age</b></label><br>
+    <h3><b>35</b></h3><br>
+	
+	<label for="Family"><b>Family members</b></label>
+    <h3 ><b>3</b></h3><br>
+	
+	<label for="income"><b>Income</b></label><br>
+    <h3 ><b>30,000 SR</b></h3><br>
+	
+	<label for="job"><b>Job</b></label><br>
+    <h3 ><b>Doctor</b></h3><br>
+	
+	<label for="phone">Phone number</label><br>
+    <h3 ><b>+996554356708</b></h3><br>
+
+    <label for="email"><b>Email</b></label><br>
+    <h3 ><b>Sarah@hotmail.com</b></h3><br>
+    
+       
+  </div>
+</form>
+
+</div>
+ 
   </body>
   </html>

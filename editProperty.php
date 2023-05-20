@@ -1,3 +1,4 @@
+ 
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,14 +7,13 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    <title>Home page</title>
+     <title>Edit property</title>
 	
 	
 	<style>
 	
 	body {
     min-height: 100vh;
- 
 }
 
 	.header{
@@ -58,7 +58,7 @@
 
 }
 .header .icons i{
-display:hidden;
+
     height:3rem;
     line-height:3rem;
     width:3rem;
@@ -69,6 +69,7 @@ display:hidden;
     margin-left: .7rem;
     font-size: 20px;
     cursor: pointer;
+	
 }
 
 
@@ -120,46 +121,63 @@ body {
     display: flex;
     align-items: center;
     background: url(background.jpg) no-repeat;
+    background-size: 600px;
     background-attachment: fixed;
-	min-height: 100vh;
     background-size: cover;
-}	
-.main h2 {
-    color: #000;
+}
+
+.main form {
+    color: #FFF;
     font-size: 1.4em;
     font-weight: 500;
-	text-shadow: 3px 3px 3px white;
-	background:rgba(255, 255, 255, 0.551);
+	/*text-shadow: 3px 3px 3px white;*/
+	background:rgba(0, 0, 0, 0.551); 
 	border-radius: 25px;
 	padding:40px;
-
-}
-.main h2 span {
-    display: inline-block;
-    margin-top: 6px;
-    color: #000;
-    font-weight: 600;
-    font-size: 3em;
-    text-shadow: 3px 3px 3px white;
+	margin-left:auto ;
+	margin-right:auto;
+	margin-top:70px;
+	width: 1000px;
 	
 
+}	
+
+
+input[type=text], input[type=file],textarea,input[type=number],.m1 {
+  width: 95%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
 }
-.main-btn {
-    color: #000;
-    background-color: #ffffff4a;
-    text-decoration: none;
-    font-size: 1.1em;
-    font-weight: 600;
-    display: inline-block;
-    padding: 0.9375em 1.1875em;
-    letter-spacing: 1px;
-    border-radius: 30px;
-    margin-bottom: 10px;
-    transition: 0.5s ease;
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
 }
-.main-btn:hover {
-  background-color: #6495ED;
-  transform: scale(1.1);
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+.signupbtn {
+  background-color: rgba(255,255,255,1);
+  color: black;
+  font:bold;
+  font-size:19px;
+  padding: 10px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 25%;
+  opacity: 0.9;
+}
+
+
+.signupbtn:hover {
+   background-color: #6495ED;
 }
 .styled {
     border: 0;
@@ -187,6 +205,17 @@ body {
   a:visited { color: white; text-decoration: none; }
   a:hover   { color: white; text-decoration: none; }
   a:active  { color: white; text-decoration: none; }
+
+.flixpic{
+display:flex;
+flex-direction: row;
+justify-content: space-around;
+
+}
+.flixpicins{
+display:flex;
+flex-direction: column;
+}
   
 	
 	
@@ -199,7 +228,13 @@ body {
 	
 	
 	</head>
-  <body>
+
+
+
+
+
+
+ <body>
   
   
    
@@ -211,12 +246,15 @@ body {
 
       <nav class="navbar">
         <a href="index.php">Home</a>
+		<a href="Homeowners.php">HomeOwner</a>
+        <a href="AddNewProperty.php">Add Property</a>
+		<a href="editProperty.php">Edit Property </a>
        
         
       </nav>
       <div class="icons">
         <i class="fas fa-bars" id="menu-bars"></i>
-        <i class="fas fa-search" id="search-icon"></i>
+        <i class="fas fa-search" id="search-icon" style="display:hidden;"></i>
 		
     </div>
 
@@ -228,20 +266,86 @@ body {
                type="button" style="position:absolute; top:50px; right:5px;"> <a href="Home.html"> LOG OUT</a> </button>
           
     </header>
-	
-	
-  <section class="main">
+
+
+<!-- /action_page.php -->
+<section class="main">
       <div>
-        <h2>
-          Welcome to <span class="snap">HomeSnap</span><br />
-		  <span>online home rental system</span >
-        </h2>
-        <a  href="loginPage.php" class="main-btn" style="color:black;">Login </a>
-        <a  href="signUpPage.php" class="main-btn" style="color:black;">sign up</a>
-      </div>
+	  <form action="" style="border:1px solid #ccc">
+  <div class="container">
+    <h1>Property information</h1>
+    <p>This is the Property information</p>
+    <hr>
+	
+	<label  for="name" ><b>Property Name:</b> </label><br>
+	<input type ="text"  id="name" name="name" value="Olaya Plaza"><br>
+   
+	
+	<label for="Category" ><b>Category:</b> </label><br>
+    <input type ="text" id="Category" name="Category" value="Apartment"><br>
+	
+	<label for="NOR" ><b>Number of rooms: </b></label><br>
+    <input type="number" id="NOR" name="NOR" value="3"><br>
+	
+	<label for="Rent" ><b>Rent: </b></label></label>
+    <input type ="text"  id="Rent" name="Rent" value="1000/month"><br>
+	
+	<label for="NOT" ><b>Max number of tenants:</b> </label><br>
+    <input type="number" id="NOT" name="NOT" value="3"><br>
+	
+	<label for="Location" ><b>Location:</b> </label><br>
+	<input type ="text" id="Location" name="Location" value="Riyadh, Olaya Dist" ><br>
+	
+	<label for="Description" ><b>Description:</b> </label><br>
+	<textarea rows="6" cols="24" placeholder="Enter Property Description" > Size: 150 m2 / 1615 ft2 has living room,kitchen,3 bathrooms,3rooms</textarea> <br>
+
+    <div class="flixpic">
+
+    <div class="flixpicins">
+    <label for="pic1" ><b>Picture of property:</b> </label>
+	<img src="view1.jpg" class="m1" alt="img1" style="height:180px; width:230px;">
+	<button class="favorite styled" type="button"> <a href=""> Delete image </a> </button><br>
+	</div>
+
+    <div class="flixpicins">
+    <label for="pic2" ><b>Picture of property:</b> </label>
+	<img src="view2.jpg" class="m1" alt="img1" style="height:180px; width:230px;">
+    <button class="favorite styled" type="button"> <a href=""> Delete image </a> </button><br>
+	</div>
+
+
+    <div class="flixpicins">
+    <label for="pic3" ><b>Picture of property:</b> </label>
+	<img src="view3.jpg" class="m1" alt="img1" style="height:180px; width:230px;">
+    <button class="favorite styled" type="button"> <a href=""> Delete image </a> </button><br>
+	</div>
+    </div>
+
+<br><br><br>
+
+    <button class="favorite styled" type="button" style="float:right;"> <a href=""> Upload Images</a> </button>
+  
+    <div class="clearfix">
+      
+      <button type="submit" class="signupbtn" onclick="validateForm(); return false">Done</button>
+	  
+     <script src="validation.js"> </script>
+     
+    </div>
+  </div>
+</form>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	   </div>
     </section>
   
-  
+
+
   <footer>
       <div class="footer">
         <p>Copyright &copy; All Rights Reserved</p>

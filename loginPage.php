@@ -237,7 +237,7 @@ hr {
       <a href="#" class="logo"><img src="Logo.png" alt="logo" width="120px"></a>
 
       <nav class="navbar">
-        <a href="Home.html">Home</a>
+        <a href="index.php">Home</a>
        
         
       </nav>
@@ -286,10 +286,10 @@ hr {
 	  function checkedTo(){
      var value5 = document.getElementById("rolesMenu").value;
      if (value5 ==="Home Owner") {
-     location.href="Homeowners.html";
+     location.href="Homeowners.php";
 	 }
 	 if (value5==="Home seeker") {
-     location.href="homeSeeker.html";
+     location.href="homeSeeker.php";
 }}
 </script>
   </div>

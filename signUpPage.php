@@ -234,7 +234,7 @@ hr {
       <a href="#" class="logo"><img src="Logo.png" alt="logo" width="120px"></a>
 
       <nav class="navbar">
-        <a href="Home.html">Home</a>
+        <a href="index.php">Home</a>
        
         
       </nav>
@@ -305,7 +305,7 @@ hr {
 	  
 	  <script>
       function goToLogIn() {
-      location.href="Log_in.html";
+      location.href="loginPage.php";
 
        }
       </script>
