@@ -275,7 +275,7 @@ $error = mysqli_connect_error();
  echo "<p> Cannot connect with DataBase </p>";
 } else {
         //////Get the id that has been send from the other pages to get its info
-        
+        $id;
      if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])){
        
        $id=$_GET['id'];
@@ -298,10 +298,10 @@ $error = mysqli_connect_error();
            echo " <h1>".$info['name']."</h1>"  ;
  
            
-           if (isset($_SESSION['role']) && $_SESSION['role']=='HomeOwner'){
-   echo "<br> button class='styled' type='button'> <a href='EditProperty.php?id='.$id> Edit </a> </button>";}
+           if (isset($_SESSION['role']) && $_SESSION['role']=='homeowner'){
+   echo "<br> <button class='styled' type='button'> <a href='EditProperty.php?id= ".$id."'> Edit </a> </button>";}
   
-  else if (isset($_SESSION['role']) && $_SESSION['role']=='Home seeker'){
+  else if (isset($_SESSION['role']) && $_SESSION['role']=='homeseeker'){
   echo "<br> <button class='styled' type='button'> <a href=''> Apply </a> </button>";
   
    

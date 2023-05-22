@@ -1,5 +1,4 @@
 <?php
-/////////////////ناقص الديليت والابلود
 session_start();
     if(isset($_SESSION['role']) && $_SESSION['role']=='homeowner'){             
 /////////////// to make the values of the property id that it has sent exists in the form
@@ -10,6 +9,8 @@ session_start();
                 $loc;
                 $tenants;
                 $description;
+                 $Cid;
+                
  if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])){
  
                 $id=$_GET['id'];
@@ -28,8 +29,9 @@ session_start();
               
  } }
  
-            if($_SERVER['REQUEST_METHOD'] === 'POST'){
-               if($_SERVER['REQUEST_METHOD'] === 'GET'&& isset($_GET['id'])){  
+  
+            if(isset($_POST['Done']) ){
+             // if($_SERVER['REQUEST_METHOD'] === 'GET'&& isset($_GET['id'])){  
               $id=$_GET['id'];
                 $Pname= isset($_POST['name'])?$_POST['name']:'';
                 $rooms=isset($_POST['NOR'])?$_POST['NOR']:0;
@@ -38,16 +40,45 @@ session_start();
                 $tenants=isset($_POST['NOT'])?$_POST['NOT']:0;
                 $description=isset($_POST['Desc'])?$_POST['Desc']:'';
                 
+            
+                    $img_name=$_FILES['file']['name'];
+                    $img_tmp=$_FILES['file']['tmp_name'];
+                    $imageup="imageupload/".$img_name; 
+     
+                
+                $connection = mysqli_connect("localhost", "root", "root", "homesnap");
+                   
+                $cate=mysqli_query($connection,"SELECT id FROM PropertyCategory WHERE category='".$_POST['Category']."'");
+                 while($row=mysqli_fetch_assoc($cate)){
+                   $Cid=$row['id'] ;
+                 }
+                 
+                                   $update_image= "UPDATE propertyimage SET path='$imageup' where property_id=".$id;
+            mysqli_query($connection, $update_image);  
+            if(move_uploaded_file($img_tmp,'imageupload/'.$img_name)){
+        echo "<h3 style='text-align:center;'>image uploaded</h3>";
+            }  
+              
                
          
-               
-                
-                 $sql="UPDATE 'Property' SET 'id'='".$id."','homeowner_id'='1','property_category_id'='1','name'='".$Pname."','rooms'='".$rooms."','rent_cost'='".$rent."','location'='".$loc."','max_tenants'='".$tenants."','description'='".$description."' WHERE 'id'= ".$id;
-          $result1=mysqli_query($connection,$sql);
-          
-               }
+           
+             $sql="UPDATE property SET name='$Pname' ,property_category_id='$Cid',rooms='$rooms',rent_cost='$rent',location='$loc',max_tenants='$tenants',description='$description' WHERE id=".$id;
+             $result1=mysqli_query($connection,$sql);
+            
+    
+                                 if($result1){  
+
+                ?> 
+         <script>alert("Edited Successfully");
+        window.location.href="PropertyDetails.php?id=<?php echo $id;?>";
+//         </script>
+<?php
+    }
+            else{
+                echo "failed";
             }
-  
+            
+            }
 
  
           
@@ -196,7 +227,7 @@ body {
 }	
 
 
-input[type=text], input[type=file],textarea,input[type=number],.m1 {
+input[type=text],textarea,input[type=number],.m1 {
   width: 95%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -300,10 +331,10 @@ justify-content: center;
       <a href="#" class="logo"><img src="Logo.png" alt="logo" width="120px"></a>
 
       <nav class="navbar">
-     <a href="index.php">Home</a>
-		<a href="Homeowners.php">HomeOwner</a>
-        <a href="AddNewProperty.php">Add Property</a>
-		<a href="editProperty.php">Edit Property </a>
+        <a href="">Home</a>
+		<a href="">HomeOwner</a>
+        <a href="">Add Property</a>
+		<a href="">Edit Property </a>
        
         
       </nav>
@@ -313,7 +344,7 @@ justify-content: center;
 		
     </div>
 
-    <form action="" class="search-form">
+    <form  class="search-form">
         <input type="search" name="" placeholder="search here..." id="search-box">
         <label for="search-box" class="fas fa-search"></label>
     </form>
@@ -324,7 +355,7 @@ justify-content: center;
 
 <section class="main">
       <div>
-	  <form   method="POST" style="border:1px solid #ccc">
+	  <form  method="POST" style="border:1px solid #ccc">
   <div class="container">
     <h1>Property information</h1>
     <p>This is the Property information</p>
@@ -332,29 +363,29 @@ justify-content: center;
 	
 	<label  for="name" ><b>Property Name:</b> </label><br>
        
-        <input type ="text"  id="name" name="name" value="<?php echo $Pname;?>"><br>
+        <input type ="text"  id="name" name="name"  value="<?php echo $Pname;?>" required><br>
    
 	
 	<label for="Category" ><b>Category:</b> </label><br>
     <input type ="text" id="Category" name="Category" value="<?php $queryy=mysqli_query($connection, "SELECT category FROM PropertyCategory WHERE id=".$Cid);                        
                   while ($column1 = mysqli_fetch_assoc($queryy)){ 
                       echo $column1['category']; }     
-               ?>"><br>
+               ?>" required><br>
 	
 	<label for="NOR" ><b>Number of rooms: </b></label><br>
-    <input type="number" id="NOR" name="NOR" value="<?php echo $rooms;?>"><br>
+    <input type="number" id="NOR" name="NOR" value="<?php echo $rooms;?>" required><br>
 	
 	<label for="Rent" ><b>Rent: </b></label></label>
-    <input type ="text"  id="Rent" name="Rent" value="<?php echo $rent ;?>"><br>
+    <input type ="text"  id="Rent" name="Rent" value="<?php echo $rent ;?>" required><br>
 	
 	<label for="NOT" ><b>Max number of tenants:</b> </label><br>
-    <input type="number" id="NOT" name="NOT" value="<?php echo $tenants ;?>"><br>
+    <input type="number" id="NOT" name="NOT" value="<?php echo $tenants ;?>" required><br>
 	
 	<label for="Location" ><b>Location:</b> </label><br>
-	<input type ="text" id="Location" name="Location" value="<?php echo $loc;?>" ><br>
+	<input type ="text" id="Location" name="Location" value="<?php echo $loc;?>" required><br>
 	
 	<label for="Description" ><b>Description:</b> </label><br>
-	<textarea rows="6" cols="24" placeholder="Enter Property Description" ><?php echo $description;?> </textarea> <br>
+	<textarea rows="6" cols="24" placeholder="Enter Property Description" id="Desc" name="Desc" required><?php echo $description;?> </textarea> <br>
 
     <div class="flixpic">
 
@@ -363,10 +394,22 @@ justify-content: center;
 	<img src="<?php $img=mysqli_query($connection, "SELECT path FROM PropertyImage WHERE property_id=".$id);                        
                   while ($column1 = mysqli_fetch_assoc($img)){ 
                       echo $column1['path']; }   ?>" class="m1" alt="img1" style="height:180px; width:230px;">
-        <button class="favorite styled" type="button" name="delete"> Delete image </button><br>
-         <button class="favorite styled" type="button" style="float:right;"> <a href=""> Upload Image</a> </button>
+           <?php echo "<a href='delete.php?id=".$id."'>"; ?>
+           <button class="favorite styled" type="button"> Delete image </button> </a><br>
+    <label> <b> Choose a file</b> </label>
+        <input class="favorite styled" type="file" name="file" id="upload">
+        
+
+
+ <!--<input type="submit" value="Delete image" name='deleting' class="favorite styled" > <br>
+     <input type="submit" value="Upload image" name='uploading' class="favorite styled" >-->
+       
+       
        
 	</div>
+        
+        
+        
 
     <!--<div class="flixpicins">
     <label for="pic2" ><b>Picture of property:</b> </label>
@@ -385,16 +428,17 @@ justify-content: center;
 <br><br><br>
 
     </div>
+        
+         
   
     <div class="clearfix">
-           <button type="submit" class="signupbtn" onclick="validateForm(); return false">Done</button>
+           <input type="submit" name="Done" class="signupbtn" value="Done" onclick="validateForm(); return false">
 	  
      <script src="validation.js"> </script>
    
      
-    </div>
+   
  
-</form>
 
    
 	  
@@ -403,6 +447,11 @@ justify-content: center;
 	  
 	  
 	   </div>
+        
+      
+</div>
+                </form>
+      </div>
     </section>
   
 
@@ -417,7 +466,7 @@ justify-content: center;
   </html>
   
   <?php 
-      }
+    }
     
     else{
         

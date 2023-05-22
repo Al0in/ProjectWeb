@@ -1,5 +1,4 @@
 <?php
-/////////////وسالفة الهوم ايدي واتوقع تتعدل مع السيشن
         session_start();
                 if(isset($_SESSION['role']) && $_SESSION['role']=='homeowner'){
              $connection = mysqli_connect("localhost", "root", "root", "homesnap");
@@ -14,7 +13,7 @@
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $id;
                 $Cid;
-                $ownerID;
+                 $ownerID;
                 
                 /////////////////Adding property info from Property & PropertyCategory tables
 
@@ -34,17 +33,15 @@
                 $loc=$_POST['Location'];
                 $tenants=$_POST['NOT'];
                 $description=$_POST['Desc'];
-                $ownerEmail=$_POST['email'];
+                $Ownerid=$_SESSION['id'];
+             
+               
+                
+                $result = mysqli_query($connection ,"INSERT INTO Property (id, homeowner_id, property_category_id, name, rooms, rent_cost,location, max_tenants, description) VALUES (' ".$id."' , '".$Ownerid."' ,'".$Cid."',  ' ".$Pname ." ' ,'".$rooms." ' ,' ".$rent."' ,' ".$loc."' ,' ".$tenants."' ,' ".$description." ' )");
 
-                
-                $homeowner= mysqli_query($connection, "SELECT id FROM Homeowner WHERE email_adress=".$ownerEmail);
-                   while ($owneer = mysqli_fetch_assoc($homeowner)){ 
-                      $ownerID=$owneer['id']; } 
                
                 
-                $result = mysqli_query($connection ,"INSERT INTO Property (id, homeowner_id, property_category_id, name, rooms, rent_cost,location, max_tenants, description) VALUES (' ".$id."' , '".$ownerID."' ,'".$Cid."',  ' ".$Pname ." ' ,'".$rooms." ' ,' ".$rent."' ,' ".$loc."' ,' ".$tenants."' ,' ".$description." ' )");
-               
-                
+            
                 ////////////////// Adding photos from PropertyImage table
                 
                 $idImage;
@@ -58,7 +55,17 @@
                   
                 
               $result5 = mysqli_query($connection , "INSERT INTO PropertyImage (id, property_id, path) VALUES (' ".$idImage."' , ' ".$id." ', ' ".$_POST['pic1']." ')");
-          
+                     if($result5){  
+
+                ?> 
+         <script>alert("Added Successfully");
+        window.location.href="PropertyDetails.php?id=<?php echo $id;?>";
+//         </script>
+<?php
+    }
+            else{
+                echo "failed";
+            }
         }          
   }
   
@@ -304,9 +311,10 @@ hr {
       <a href="#" class="logo"><img src="Logo.png" alt="logo" width="120px"></a>
 
       <nav class="navbar">
-        <a href="index.php">Home</a>
-		<a href="Homeowners.php">HomeOwner</a>
-		<a href="editProperty.php">Edit Property </a>
+        <a href="">Home</a>
+		<a href="">HomeOwner</a>
+        <a href=''>Add Property</a>
+		<a href="">Edit Property </a>
        
         
       </nav>
@@ -354,10 +362,10 @@ hr {
 	<input type ="text" id="Location" name="Location" placeholder="Enter Property Location" required ><br>
 	
 	<label for="Description" ><b>Description:</b> </label><br>
-	<textarea rows="6" cols="24" placeholder="Enter Property Description" id="Desc" name="Desc"> </textarea> <br>
+	<textarea rows="6" cols="24" placeholder="Enter Property Description" id="Desc" name="Desc" required> </textarea> <br>
 
     <label for="pic1" ><b>Picture of property:</b> </label>
-	<input type ="file"  id="pic1" name="pic1" accept="image/png, image/jpeg"><br>
+    <input type ="file"  id="pic1" name="pic1" accept="image/png, image/jpeg" required><br>
 
 
   <!--  <label for="pic2" ><b>Picture of property:</b> </label>

@@ -238,8 +238,8 @@ hr {
       <a href="#" class="logo"><img src="Logo.png" alt="logo" width="120px"></a>
 
       <nav class="navbar">
-        <a href="index.php">Home</a>
-        <a href="Homeowners.php">HomeOwner</a>
+        <a href="Home.html">Home</a>
+        <a href="Homeowners.html">HomeOwner</a>
         
       </nav>
       <div class="icons">
