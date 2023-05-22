@@ -302,7 +302,10 @@ $error = mysqli_connect_error();
    echo "<br> <button class='styled' type='button'> <a href='EditProperty.php?id= ".$id."'> Edit </a> </button>";}
   
   else if (isset($_SESSION['role']) && $_SESSION['role']=='homeseeker'){
-  echo "<br> <button class='styled' type='button'> <a href=''> Apply </a> </button>";
+      $res= mysqli_query($connection, "SELECT * FROM RentalApplication WHERE home_seeker_id=".$_SESSION['id']);
+      if(!$res){
+          echo "<br> <button class='styled' type='button'> <a href=''> Apply </a> </button>";  
+      }
   
    
     $homeownerINFO= mysqli_query($connection,"SELECT * FROM homeowner JOIN property on homeowner.id = property.homeowner_id WHERE property.id=".$id);
