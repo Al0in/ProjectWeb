@@ -355,7 +355,7 @@ justify-content: center;
 
 <section class="main">
       <div>
-	  <form  method="POST" style="border:1px solid #ccc">
+	  <form  method="POST" style="border:1px solid #ccc" enctype="multipart/form-data">
   <div class="container">
     <h1>Property information</h1>
     <p>This is the Property information</p>
