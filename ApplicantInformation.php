@@ -1,4 +1,6 @@
 <?php
+session_start();
+    if(isset($_SESSION['role']) && $_SESSION['role']=='homeowner'){
 $connection = mysqli_connect("localhost", "root", "root", "homesnap");
 $error = mysqli_connect_error();
  if ($error != null) {
@@ -238,8 +240,8 @@ hr {
       <a href="#" class="logo"><img src="Logo.png" alt="logo" width="120px"></a>
 
       <nav class="navbar">
-        <a href="Home.html">Home</a>
-        <a href="Homeowners.html">HomeOwner</a>
+        <a href="index.php">Home</a>
+        <a href="Homeowners.php">HomeOwner</a>
         
       </nav>
       <div class="icons">
@@ -297,4 +299,12 @@ hr {
  
   </body>
   </html>
-
+  
+  <?php
+    }
+      
+    else{
+        
+        echo "You can not reach this page";
+    }
+  

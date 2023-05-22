@@ -245,9 +245,8 @@ session_start();
       <a href="Home.html" class="logo"><img src="Logo.png" alt="logo" width="120px"></a>
 
       <nav class="navbar">
-        <a href="">Home</a>
-        
-        <a href="">Property Details</a>
+        <a href="index.php">Home</a>
+       
         
       </nav>
       <div class="icons">
@@ -299,7 +298,7 @@ $error = mysqli_connect_error();
  
            
            if (isset($_SESSION['role']) && $_SESSION['role']=='homeowner'){
-   echo "<br> <button class='styled' type='button'> <a href='EditProperty.php?id= ".$id."'> Edit </a> </button>";}
+   echo "<br> <button class='styled' type='button'> <a href='editProperty.php?id= ".$id."'> Edit </a> </button>";}
   
   else if (isset($_SESSION['role']) && $_SESSION['role']=='homeseeker'){
       $res= mysqli_query($connection, "SELECT * FROM RentalApplication WHERE home_seeker_id=".$_SESSION['id']);

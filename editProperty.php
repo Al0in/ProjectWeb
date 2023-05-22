@@ -70,7 +70,7 @@ session_start();
 
                 ?> 
          <script>alert("Edited Successfully");
-        window.location.href="PropertyDetails.php?id=<?php echo $id;?>";
+        window.location.href="propertyDetails.php?id=<?php echo $id;?>";
 //         </script>
 <?php
     }
@@ -331,10 +331,10 @@ justify-content: center;
       <a href="#" class="logo"><img src="Logo.png" alt="logo" width="120px"></a>
 
       <nav class="navbar">
-        <a href="">Home</a>
-		<a href="">HomeOwner</a>
-        <a href="">Add Property</a>
-		<a href="">Edit Property </a>
+      <a href="index.php">Home</a>
+		<a href="Homeowners.php">HomeOwner</a>
+        <a href='AddNewProperty.php'>Add Property</a>
+		<a href="editProperty.php">Edit Property </a>
        
         
       </nav>
