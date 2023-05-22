@@ -301,9 +301,10 @@ $error = mysqli_connect_error();
    echo "<br> <button class='styled' type='button'> <a href='editProperty.php?id= ".$id."'> Edit </a> </button>";}
   
   else if (isset($_SESSION['role']) && $_SESSION['role']=='homeseeker'){
-      $res= mysqli_query($connection, "SELECT * FROM RentalApplication WHERE home_seeker_id=".$_SESSION['id']);
-      if(!$res){
-          echo "<br> <button class='styled' type='button'> <a href=''> Apply </a> </button>";  
+      $res= mysqli_query($connection, "SELECT * FROM rentalapplication WHERE home_seeker_id=".$_SESSION['id']." AND property_id=".$id);
+      if(mysqli_num_rows($res) == 0){
+            echo "<a href='apply.php?id=".$id."&seekerID=".$_SESSION['id']."'>";
+          echo "<br> <button class='styled' type='button'>  Apply </button> </a>"; 
       }
   
    
@@ -314,7 +315,7 @@ $error = mysqli_connect_error();
         echo "<br> <br>";
         echo "<p style='font-size:18px;'> Home Owner Information</p><br>";
         echo "<div class=homeOwner>";
-         echo "<img src='avatar.jpg' width='120px'>";
+         echo "<img src='avatar.png' width='120px'>";
         echo "<p>  Name: ".$Hinfo['homeowner_name']."</p><br>";
         echo "<p>  EmailAddress: ".$Hinfo['email_address']."</p> <br>";
         echo "<p>  Phone Number: ".$Hinfo['phone_number']."</p><br>";
