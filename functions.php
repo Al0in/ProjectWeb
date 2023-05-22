@@ -24,7 +24,7 @@ function authenticate_owner_login($email, $password, $connection)
 function authenticate_seeker_login($email, $password, $connection)
 {
 
-    $existed_seeker = "select * from homeseeker where email_address='" . $email . "'";
+    $existed_seeker = "select * from homeseeker where email_adress='" . $email . "'";
     
     echo $existed_seeker;
     die;
@@ -50,7 +50,7 @@ function authenticate_seeker_login($email, $password, $connection)
 
 function checkseeker($email, $connection)
 {
-    $is_exist = "select * from homeseeker where email_address='" . $email . "'";
+    $is_exist = "select * from homeseeker where email_adress='" . $email . "'";
 
     //echo $is_exist;
     $exis_qry = mysqli_query($connection, $is_exist);
@@ -174,7 +174,7 @@ function Add_Seeker($first_name, $last_name, $age, $family_members, $job, $phone
         'cost' => 12,
     ];
     $hashed_password = password_hash($password, PASSWORD_BCRYPT, $options);
-    $insert_seeker = "INSERT into homeseeker( first_name, last_name, age, family_members, income, job, phone_number, email_address, password) values ('$first_name','$last_name',$age,$family_members,'$phone_number','$email',$income,'$job','$hashed_password')";
+    $insert_seeker = "INSERT into homeseeker( first_name, last_name, age, family_members, income, job, phone_number, email_adress, password) values ('$first_name','$last_name',$age,$family_members,'$phone_number','$email',$income,'$job','$hashed_password')";
 
     $result = mysqli_query($connection, $insert_seeker);
     // echo mysqli_insert_id($connection);die;
